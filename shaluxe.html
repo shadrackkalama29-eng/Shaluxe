@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stride - Step Into Your Best</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        stride: {
+                            orange: '#f97316',
+                            dark: '#0a0f1c',
+                            nav: '#0f1627',
+                            red: '#e11d48',
+                            neonGreen: '#0bd34d'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0a0f1c;
+            /* Creates the faint grid background seen in the image */
+            background-image: linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .category-badge {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body class="text-white min-h-screen overflow-x-hidden font-sans">
+
+    <div class="bg-stride-orange text-white text-sm py-2 px-4 text-center font-medium z-50 relative">
+        Free shipping on orders over Ksh. 10,000 | Use code <span class="font-bold text-white">SHALUXE</span> for 20% off your first order
+    </div>
+
+    <nav class="container mx-auto px-6 py-6 flex items-center justify-between relative z-40">
+        <div class="flex items-center gap-2 cursor-pointer">
+            <span class="text-xl font-extrabold tracking-tight">Shaluxe Designs</span>
+        </div>
+
+        <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
+            <a href="shop.html" class="text-white hover:text-stride-orange transition">Shop</a>
+            <a href="#Shop" class="hover:text-stride-orange transition">Categories</a>
+            <a href="#Signature" class="hover:text-stride-orange transition">The Signature Collection</a>
+            <a href="#Arrivals" class="hover:text-stride-orange transition">New Arrivals</a>
+            <a href="shop.html" class="hover:text-stride-orange transition">Sale</a>
+          <a href="javascript:void(0)" onclick="toggleAbout()" class="hover:text-stride-orange transition cursor-pointer">About</a>
+        </div>
+
+       <div class="flex items-center gap-4 sm:gap-5 text-gray-500 dark:text-gray-400">
+    
+    
+    <a href="https://wa.me/+254115443290" target="_blank" class="hover:text-green-500 transition focus:outline-none" title="Chat with us">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
+    </a>
+    
+    <button id="theme-toggle-btn" class="hover:text-black dark:hover:text-white transition focus:outline-none" title="Toggle Dark Mode">
+        <svg id="icon-sun" class="w-5 h-5 hidden text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+        <svg id="icon-moon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+    </button>
+    
+    <button id="cart-btn" class="hover:text-stride-orange transition relative focus:outline-none" title="View Cart">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
+        <span id="cart-count" class="absolute -top-2 -right-2 bg-stride-orange text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">2</span>
+    </button>
+    
+    <button id="mobile-menu-btn" class="md:hidden ml-2 hover:text-black dark:hover:text-white transition focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+    </button>
+</div><script>
+    const themeBtn = document.getElementById('theme-toggle-btn');
+    const iconSun = document.getElementById('icon-sun');
+    const iconMoon = document.getElementById('icon-moon');
+    const htmlElement = document.documentElement;
+    const bodyElement = document.body;
+
+    // Force transition styling on the body so the color change is smooth
+    bodyElement.style.transition = "background-color 0.3s ease, color 0.3s ease";
+
+    // 1. Initial Load Check (Now defaults to Dark)
+    if (localStorage.theme === 'light') {
+        // Only go light if they specifically saved it previously
+        htmlElement.classList.remove('dark');
+        iconSun.classList.add('hidden');
+        iconMoon.classList.remove('hidden');
+        bodyElement.style.backgroundColor = "#f9fafb"; // Force light background
+        bodyElement.style.color = "#111827";           // Force dark text
+    } else {
+        // DEFAULT STATE: Dark Mode
+        htmlElement.classList.add('dark');
+        iconSun.classList.remove('hidden');
+        iconMoon.classList.add('hidden');
+        bodyElement.style.backgroundColor = "#0a0f1c"; // Force dark background
+        bodyElement.style.color = "#ffffff";           // Force light text
+    }
+
+    // 2. Click Toggle Logic
+    themeBtn.addEventListener('click', () => {
+        htmlElement.classList.toggle('dark');
+        const isDark = htmlElement.classList.contains('dark');
+        
+        if (isDark) {
+            localStorage.setItem('theme', 'dark');
+            iconSun.classList.remove('hidden');
+            iconMoon.classList.add('hidden');
+            // Force the page to go dark
+            bodyElement.style.backgroundColor = "#0a0f1c"; 
+            bodyElement.style.color = "#ffffff";
+        } else {
+            localStorage.setItem('theme', 'light');
+            iconSun.classList.add('hidden');
+            iconMoon.classList.remove('hidden');
+            // Force the page to go light
+            bodyElement.style.backgroundColor = "#f9fafb"; 
+            bodyElement.style.color = "#111827";
+        }
+    });
+
+    // ... (Keep your previous Cart, Search, and Wishlist JS logic here) ...
+</script>
+<style>
+    /* -----------------------------------------
+       1. BASE STYLES (Light Mode Defaults)
+       We use !important to override your hardcoded Tailwind classes
+    ----------------------------------------- */
+    body {
+        background-color: #f9fafb !important; /* Light gray background */
+        color: #111827 !important; /* Dark text */
+        transition: background-color 0.3s ease, color 0.3s ease;
+        /* Faint grid that works on both light and dark */
+        background-image: linear-gradient(to right, rgba(128,128,128,0.05) 1px, transparent 1px),
+                          linear-gradient(to bottom, rgba(128,128,128,0.05) 1px, transparent 1px);
+        background-size: 60px 60px;
+    }
+    
+    /* Force headings to black */
+    h1, h2, h3, h4 { color: #000000 !important; transition: color 0.3s ease; }
+    
+    /* Force paragraphs and old gray text to a darker gray */
+    p, .text-gray-300, .text-gray-400 { color: #4b5563 !important; transition: color 0.3s ease; }
+    
+    /* Make glass cards and product cards white in light mode */
+    .glass-card, .bg-gray-800\/40 { 
+        background-color: #ffffff !important; 
+        border-color: #e5e7eb !important; 
+        transition: all 0.3s ease;
+    }
+
+    /* Keep category badges looking like glass */
+    .category-badge { background: rgba(0, 0, 0, 0.5) !important; backdrop-filter: blur(8px); }
+
+    /* -----------------------------------------
+       2. DARK MODE OVERRIDES
+       When the 'dark' class is triggered, flip everything!
+    ----------------------------------------- */
+    html.dark body {
+        background-color: #0a0f1c !important; /* Stride Dark */
+        color: #ffffff !important; /* White text */
+    }
+    
+    html.dark h1, html.dark h2, html.dark h3, html.dark h4 { 
+        color: #ffffff !important; 
+    }
+    
+    html.dark p, html.dark .text-gray-300, html.dark .text-gray-400 { 
+        color: #9ca3af !important; /* Light gray text */
+    }
+    
+    html.dark .glass-card { 
+        background: rgba(255, 255, 255, 0.08) !important; 
+        backdrop-filter: blur(12px); 
+        border: 1px solid rgba(255, 255, 255, 0.1) !important; 
+    }
+    
+    html.dark .bg-gray-800\/40 {
+        background-color: rgba(31, 41, 55, 0.4) !important;
+        border-color: rgba(255, 255, 255, 0.05) !important;
+    }
+</style>
+    </nav>
+<div id="mobile-menu" class="hidden fixed inset-0 z-50 bg-[#0a0f1c]/95 backdrop-blur-xl md:hidden flex flex-col">
+    <div class="flex items-center justify-between px-6 py-6 border-b border-gray-800/60">
+        <span class="text-2xl font-extrabold text-white tracking-tight">Shaluxe Designs</span>
+        <button id="close-menu-btn" class="text-gray-400 hover:text-stride-orange transition focus:outline-none p-2 rounded-full bg-white/5 border border-white/10">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
+    
+   <div id="mobile-menu" class="flex flex-col px-6 py-8 text-xl font-semibold text-gray-400 overflow-y-auto">
+    <a href="shop.html" onclick="closeMenu()" class="text-white hover:text-stride-orange transition flex items-center justify-between border-b border-gray-800/50 py-5">
+        Shop
+        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+    </a>
+    <a href="#Shop" onclick="closeMenu()" class="hover:text-white transition flex items-center justify-between border-b border-gray-800/50 py-5">
+        Categories
+        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+    </a>
+    <a href="#Arrivals" onclick="closeMenu()" class="hover:text-white transition flex items-center justify-between border-b border-gray-800/50 py-5">
+        New Arrivals
+        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+    </a>
+    <a href="Shop.html" onclick="closeMenu()" class="hover:text-white transition flex items-center justify-between border-b border-gray-800/50 py-5">
+        Sale
+        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+    </a>
+    <a href="javascript:void(0)" onclick="toggleAbout(); closeMenu()" class="hover:text-white transition flex items-center justify-between py-5 cursor-pointer">
+        About
+        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+    </a>
+</div>
+        </button>
+    </div>
+</div><script>
+    const openBtn = document.getElementById('mobile-menu-btn');
+    const closeBtn = document.getElementById('close-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+
+    // Open menu and lock background scrolling
+    openBtn.addEventListener('click', () => {
+        menu.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; 
+    });
+
+    // Close menu and unlock background scrolling
+    closeBtn.addEventListener('click', () => {
+        menu.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    });
+</script>
+    <main class="container mx-auto px-6 py-12 md:py-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+        
+        <div class="space-y-8 z-10 w-full relative">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-orange-500/30 bg-orange-500/10 text-sm font-semibold text-stride-orange">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd" />
+                </svg>
+                Premium Print Shop
+            </div>
+
+          <div class="relative h-[130px] md:h-[160px] w-full mb-6">
+    
+    <h1 id="heading-1" class="absolute top-0 left-0 w-full text-6xl md:text-7xl font-extrabold leading-tight tracking-tight is-printing">
+        Your Brand <br>
+        <span class="text-stride-orange">Loud & Clear.</span>
+    </h1>
+
+    <h1 id="heading-2" class="absolute top-0 left-0 w-full text-6xl md:text-7xl font-extrabold leading-tight tracking-tight opacity-0">
+        Personalized Design. <br>
+        <span class="text-stride-orange">Elevated Identity.</span>
+    </h1>
+
+</div><style>
+    /* The Printer Wipe Effect */
+    @keyframes print-wipe {
+        0% { clip-path: inset(0 100% 0 0); opacity: 1; }
+        100% { clip-path: inset(0 0 0 0); opacity: 1; }
+    }
+    
+    .text-print-reveal {
+        animation: print-wipe 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards !important;
+        opacity: 1 !important;
+        z-index: 10;
+    }
+
+    .text-fade-out {
+        opacity: 0 !important;
+        transition: opacity 0.5s ease-out;
+        z-index: 0;
+    }
+</style>
+
+            <p class="text-gray-400 text-lg md:text-xl max-w-lg leading-relaxed">
+               Elevate your corporate identity with expert branding. Our tailored solutions unite your workforce, boost team spirit, and build unmatched brand awareness across Nairobi and beyond </p>
+
+            <div class="flex flex-wrap items-center gap-4 pt-4">
+                <button class="bg-stride-orange hover:bg-orange-600 text-white font-semibold py-3.5 px-8 rounded-full flex items-center gap-2 transition duration-300 shadow-[0_0_20px_rgba(249,115,22,0.3)]">
+                    Shop Now 
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                </button>
+                <button class="border border-gray-600 hover:border-white text-white font-semibold py-3.5 px-8 rounded-full transition duration-300">
+                    Browse Categories
+                </button>
+            </div>
+
+            <div class="pt-10 mt-6 border-t border-gray-800/60 flex items-end justify-between pr-4 md:pr-10 w-full">
+                <div class="flex items-center gap-6 md:gap-8">
+                    <div>
+                        <p class="text-2xl md:text-[28px] font-extrabold text-white leading-none">5K+</p>
+                        <p class="text-[13px] text-gray-500 mt-2 font-medium">Happy Customers</p>
+                    </div>
+                    <div class="h-10 w-[1px] bg-gray-800"></div>
+                    <div>
+                        <p class="text-2xl md:text-[28px] font-extrabold text-white leading-none flex items-center gap-1.5">
+                            4.9 
+                            <svg class="w-4 h-4 text-yellow-500 mb-1" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        </p>
+                        <p class="text-[13px] text-gray-500 mt-2 font-medium">Average Rating</p>
+                    </div>
+                    <div class="h-10 w-[1px] bg-gray-800"></div>
+                    <div>
+                        <p class="text-2xl md:text-[28px] font-extrabold text-white leading-none">500+</p>
+                        <p class="text-[13px] text-gray-500 mt-2 font-medium">Brands Elevated</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center gap-3 text-white cursor-pointer transition pb-1 absolute -bottom-16 md:-bottom-20 right-0 lg:-right-24">
+    <span class="text-xs font-bold tracking-[0.2em] uppercase">Explore</span>
+    <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+    </svg>
+</div>
+            </div>
+        </div>
+
+        <div class="relative w-full h-[500px] flex items-center justify-center mt-10 lg:mt-0">
+            <div class="absolute inset-0 bg-red-600 transform -rotate-3 scale-105 rounded-3xl -z-10 shadow-2xl"></div>
+            <img src="https://i.pinimg.com/1200x/26/b7/ab/26b7ab944798f7b5dfde6a48c910f6de.jpg" alt="Red branded T-shirts" class="relative z-10 w-full max-w-md transform -rotate-12 scale-110 drop-shadow-2xl object-cover rounded-[3rem] mix-blend-normal" style="mask-image: linear-gradient(to bottom, black 80%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);">
+
+            <div class="glass-card absolute bottom-32 left-0 md:-left-12 p-4 rounded-2xl flex items-center gap-4 z-20 shadow-xl w-60">
+                <div class="bg-green-500/20 text-green-400 p-2 rounded-full">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white text-sm">Free Shipping</h4>
+                    <p class="text-gray-300 text-xs">Orders over Ksh.10,000</p>
+                </div>
+            </div>
+
+            <div class="glass-card absolute -bottom-6 right-0 md:right-4 p-4 rounded-2xl flex items-center gap-4 z-20 shadow-xl w-60">
+                <div class="bg-orange-500/20 text-stride-orange p-2 rounded-full">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+        </svg> </div>
+                <div>
+    <h4 class="font-bold text-white text-sm">Premium Quality</h4>
+    <p class="text-gray-300 text-xs">Vibrant, lasting prints</p>
+</div>
+            </div>
+
+            <div class="absolute top-10 right-4 z-20 bg-gradient-to-br from-orange-400 to-stride-orange w-24 h-24 rounded-full flex flex-col items-center justify-center shadow-[0_0_30px_rgba(249,115,22,0.4)]">
+                <span class="text-[10px] font-bold tracking-wider">Get UP TO</span>
+                <span class="text-2xl font-black leading-none my-0.5">40%</span>
+                <span class="text-[10px] font-bold tracking-wider">OFF</span>
+            </div>
+        </div>
+    </main>
+
+    <section id="Shop"class="container mx-auto px-6 py-16 relative z-10">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+            <div>
+                <h2 class="text-3xl font-extrabold text-white mb-1.5 tracking-tight">Shop by Category</h2>
+                <p class="text-gray-400 text-sm">Find Premium branded essentials, tailored to your vision</p>
+            </div>
+            <a href="shop.html" class="text-stride-orange text-sm font-semibold flex items-center gap-1.5 hover:text-orange-400 transition-colors">
+    View All 
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+    </svg>
+</a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="relative rounded-[2rem] overflow-hidden h-80 group cursor-pointer border border-white/5 shadow-2xl">
+                <img src="https://i.pinimg.com/736x/62/91/9d/62919d4139e5bb7703893e5d9546c6f2.jpg" alt="Apparel & Uniforms" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#3b0b12] via-black/40 to-black/10"></div>
+                <div class="absolute bottom-0 left-0 p-6 w-full z-10 flex flex-col items-start">
+                    <span class="category-badge text-white text-[11px] font-semibold px-3.5 py-1.5 rounded-full mb-3 border border-white/20">5k+ Products Sold</span>
+                    <h3 class="text-2xl font-bold text-white mb-1.5">Apparel & Uniforms</h3>
+                    <p class="text-gray-300 text-xs mb-4 w-[90%] leading-relaxed">Premium T-shirts for teams and events</p>
+                   <a href="shop.html" class="text-white font-semibold text-sm flex items-center gap-2 group-hover:text-stride-orange transition-colors">
+    Shop Now 
+    <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+    </svg>
+</a>   </div>
+            </div>
+
+            <div class="relative rounded-[2rem] overflow-hidden h-80 group cursor-pointer border border-white/5 shadow-2xl">
+                <img src="https://i.pinimg.com/736x/cd/29/20/cd292097a5fa5986ce84d8a6fba6ed35.jpg" alt="Signature Drinkware" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#2a260d] via-black/40 to-black/10"></div>
+                <div class="absolute bottom-0 left-0 p-6 w-full z-10 flex flex-col items-start">
+                    <span class="category-badge text-white text-[11px] font-semibold px-3.5 py-1.5 rounded-full mb-3 border border-white/20">200+ Products Sold</span>
+                    <h3 class="text-2xl font-bold text-white mb-1.5">Signature Drinkware</h3>
+                    <p class="text-gray-300 text-xs mb-4 w-[90%] leading-relaxed">Personalized mugs and bottles for daily inspiration</p>
+                    <a href="shop.html" class="text-white font-semibold text-sm flex items-center gap-2 group-hover:text-stride-orange transition-colors">
+    Shop Now 
+    <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+    </svg>
+</a></div>
+            </div>
+
+            <div class="relative rounded-[2rem] overflow-hidden h-80 group cursor-pointer border border-white/5 shadow-2xl">
+                <img src="https://i.pinimg.com/1200x/6a/58/b4/6a58b495a82fcedb3a94b45d6fd0d740.jpg" alt="Executive Gifting" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#0d1c3b] via-black/40 to-black/10"></div>
+                <div class="absolute bottom-0 left-0 p-6 w-full z-10 flex flex-col items-start">
+                    <span class="category-badge text-white text-[11px] font-semibold px-3.5 py-1.5 rounded-full mb-3 border border-white/20">500+ Products Sold</span>
+                    <h3 class="text-2xl font-bold text-white mb-1.5">Executive Gifting</h3>
+                    <p class="text-gray-300 text-xs mb-4 w-[90%] leading-relaxed">Luxury diary sets and planners for the modern pro</p>
+                   <a href="shop.html" class="text-white font-semibold text-sm flex items-center gap-2 group-hover:text-stride-orange transition-colors">
+    Shop Now 
+    <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+    </svg>
+</a></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="Signature" class="container mx-auto px-6 py-16 relative z-10">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+            <div>
+                <h2 class="text-3xl font-extrabold text-white mb-1.5 tracking-tight">The Signature Collection</h2>
+                <p class="text-gray-400 text-sm">Our most requested branding essentials, curated for excellence</p>
+            </div>
+            <a href="Shop.html" class="text-stride-orange text-sm font-semibold flex items-center gap-1.5 hover:text-orange-400 transition-colors">
+                View All Featured <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-gray-800/40 rounded-2xl overflow-hidden border border-white/5 hover:-translate-y-1 transition-transform duration-300 cursor-pointer flex flex-col">
+                <div class="relative h-60 bg-gray-900 overflow-hidden">
+                    <img src="https://i.pinimg.com/1200x/5c/bf/eb/5cbfebc9b3001042f853f12b189222e9.jpg" alt="Velocity Runner Pro" class="w-full h-full object-cover">
+                    <div class="absolute top-3 left-3 flex flex-col gap-2">
+                        <span class="bg-stride-orange text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full">-15%</span>
+                        <span class="bg-stride-orange text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wide">Bestseller</span>
+                    </div>
+                </div>
+                <div class="p-5 flex-1 flex flex-col">
+                    <div class="flex justify-between items-center text-xs text-gray-400 mb-2">
+                        <span>Apparel & Uniforms</span>
+                        <span class="flex items-center gap-1"><svg class="w-3 h-3 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> 4.9</span>
+                    </div>
+                    <h3 class="text-white font-bold text-[15px] mb-4">Branded Polo Tshirts</h3>
+                    <div class="mt-auto flex items-center gap-2">
+                        <span class="text-white font-bold">KSh 1,020.00</span>
+                        <span class="text-gray-500 line-through text-sm">KSh 1,200.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gray-800/40 rounded-2xl overflow-hidden border border-white/5 hover:-translate-y-1 transition-transform duration-300 cursor-pointer flex flex-col">
+                <div class="relative h-60 bg-gray-900 overflow-hidden">
+                    <img src="https://i.pinimg.com/736x/4f/99/b1/4f99b180bbe666c5539b1bd0992f8574.jpg" alt="Streetwise Classic" class="w-full h-full object-cover">
+                    <div class="absolute top-3 left-3 flex flex-col gap-2">
+                        <span class="bg-stride-orange text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wide">Bestseller</span>
+                    </div>
+                </div>
+                <div class="p-5 flex-1 flex flex-col">
+                    <div class="flex justify-between items-center text-xs text-gray-400 mb-2">
+                        <span>Apparel & Uniforms</span>
+                        <span class="flex items-center gap-1"><svg class="w-3 h-3 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> 4.8</span>
+                    </div>
+                    <h3 class="text-white font-bold text-[15px] mb-4">Plain T-shirt</h3>
+                   <div class="mt-auto flex items-center justify-between w-full border-t border-gray-700/50 pt-3 mt-3">
+    <div class="flex flex-col">
+        <span class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold mb-0.5">Retail</span>
+        <span class="text-white font-bold text-sm">KSh 500.00</span>
+    </div>
+
+    <div class="flex flex-col items-end">
+        <span class="text-[10px] text-stride-white uppercase tracking-wider font-semibold mb-0.5">Wholesale</span>
+        <span class="text-stride-white font-bold text-base">KSh 400.00</span>
+    </div>
+</div>
+                </div>
+            </div>
+
+            <div class="bg-gray-800/40 rounded-2xl overflow-hidden border border-white/5 hover:-translate-y-1 transition-transform duration-300 cursor-pointer flex flex-col">
+                <div class="relative h-60 bg-gray-900 overflow-hidden">
+                    <img src="https://i.pinimg.com/1200x/08/59/73/08597396da99578c03f233853b5ebd78.jpg" alt="Court Dominator X" class="w-full h-full object-cover">
+                    <div class="absolute top-3 left-3 flex flex-col gap-2">
+                        <span class="bg-green-500 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wide">New</span>
+                    </div>
+                </div>
+                <div class="p-5 flex-1 flex flex-col">
+                    <div class="flex justify-between items-center text-xs text-gray-400 mb-2">
+                        <span>Executive Gifting</span>
+                        <span class="flex items-center gap-1"><svg class="w-3 h-3 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> 4.7</span>
+                    </div>
+                    <h3 class="text-white font-bold text-[15px] mb-4">Luxe Gift Sets<br>(Diary + Accessories)</h3>
+                    <div class="mt-auto flex items-center gap-2">
+                        <span class="text-white font-bold">Ksh 2,500 – Ksh 4,500</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gray-800/40 rounded-2xl overflow-hidden border border-white/5 hover:-translate-y-1 transition-transform duration-300 cursor-pointer flex flex-col">
+                <div class="relative h-60 bg-gray-900 overflow-hidden">
+                    <img src="https://i.pinimg.com/1200x/69/f7/24/69f7241db90c2a1a7f7b130a04949f65.jpg" alt= "The Campus Classic" class="w-full h-full object-cover">
+                    <div class="absolute top-3 left-3 flex flex-col gap-2">
+                        <span class="bg-stride-orange text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full">-20%</span>
+                    </div>
+                </div>
+                <div class="p-5 flex-1 flex flex-col">
+                    <div class="flex justify-between items-center text-xs text-gray-400 mb-2">
+                        <span>Luxe Gift</span>
+                        <span class="flex items-center gap-1"><svg class="w-3 h-3 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> 4.8</span>
+                    </div>
+                    <h3 class="text-white font-bold text-[15px] mb-4">The Campus Classic</h3>
+                    <div class="mt-auto flex items-center gap-2">
+                        <span class="text-white font-bold">Ksh. 800</span>
+                        <span class="text-gray-500 line-through text-sm">Ksh. 1000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="Arrivals" class="container mx-auto px-6 py-16 relative z-10">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+            <div>
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-900/30 text-[11px] font-bold text-stride-neonGreen mb-4 border border-green-800/50">
+                    <span class="w-1.5 h-1.5 rounded-full bg-stride-neonGreen shadow-[0_0_8px_#0bd34d]"></span>
+                    Just Dropped
+                </div>
+                <h2 class="text-3xl font-extrabold text-white mb-1.5 tracking-tight">New Arrivals</h2>
+                <p class="text-gray-400 text-sm">Freshly curated gift sets and branding essentials — be the first to own them.</p>
+            </div>
+            <a href="Shop.html" class="text-stride-orange text-sm font-semibold flex items-center gap-1.5 hover:text-orange-400 transition-colors">
+                Shop New Arrivals <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="relative rounded-2xl overflow-hidden aspect-square group cursor-pointer border border-white/5 shadow-xl bg-gray-800">
+                <img src="https://i.pinimg.com/736x/0f/7a/6f/0f7a6f64339f5f036b468f42d46a2623.jpg" alt="2026 Diaries" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out">
+                <div class="absolute top-4 left-4 z-10">
+                    <span class="bg-stride-neonGreen text-white text-[10px] font-extrabold px-3 py-1 rounded-full tracking-wider shadow-lg">NEW</span>
+                </div>
+            </div>
+            <div class="relative rounded-2xl overflow-hidden aspect-square group cursor-pointer border border-white/5 shadow-xl bg-gray-800">
+                <img src="https://i.pinimg.com/1200x/03/7b/95/037b955b962949132fb5528cc19ba3b6.jpg" alt="Kitchen Apronsv " class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out">
+                <div class="absolute top-4 left-4 z-10">
+                    <span class="bg-stride-neonGreen text-white text-[10px] font-extrabold px-3 py-1 rounded-full tracking-wider shadow-lg">NEW</span>
+                </div>
+            </div>
+            <div class="relative rounded-2xl overflow-hidden aspect-square group cursor-pointer border border-white/5 shadow-xl ">
+                <img src="https://i.pinimg.com/736x/66/31/39/66313908f2ae7e4146427f90a4a97fa4.jpg" alt="Name Tag" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out mix-blend-multiply">
+                <div class="absolute top-4 left-4 z-10">
+                    <span class="bg-stride-neonGreen text-white text-[10px] font-extrabold px-3 py-1 rounded-full tracking-wider shadow-lg">NEW</span>
+                </div>
+            </div>
+            <div class="relative rounded-2xl overflow-hidden aspect-square group cursor-pointer border border-white/5 shadow-xl bg-gray-800">
+                <img src="https://i.pinimg.com/736x/97/0e/ce/970ece2cec9f932628a9d1c4c92e38b9.jpg" alt="Grey Knit Sneaker" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out">
+                <div class="absolute top-4 left-4 z-10">
+                    <span class="bg-stride-neonGreen text-white text-[10px] font-extrabold px-3 py-1 rounded-full tracking-wider shadow-lg">NEW</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="border-t border-b border-white/5 bg-[#080c17] relative z-10 mt-10">
+        <div class="container mx-auto px-6 py-16">
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16 pb-16 border-b border-white/5 text-center">
+                <div class="flex flex-col items-center">
+                    <span class="text-4xl font-extrabold text-white mb-2">5K+</span>
+                    <span class="text-sm text-gray-500 font-medium">Happy Customers</span>
+                </div>
+                <div class="flex flex-col items-center border-l border-white/5">
+                    <span class="text-4xl font-extrabold text-white mb-2">4.9/5</span>
+                    <span class="text-sm text-gray-500 font-medium">Average Rating</span>
+                </div>
+                <div class="flex flex-col items-center md:border-l border-white/5">
+                    <span class="text-4xl font-extrabold text-white mb-2">100+</span>
+                    <span class="text-sm text-gray-500 font-medium">5-Star Reviews</span>
+                </div>
+                <div class="flex flex-col items-center border-l border-white/5">
+                    <span class="text-4xl font-extrabold text-white mb-2">98%</span>
+                    <span class="text-sm text-gray-500 font-medium">Would Recommend</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+                <div>
+                    <div class="w-12 h-12 rounded-xl bg-gray-800/50 border border-white/10 flex items-center justify-center mb-5">
+                        <svg class="w-6 h-6 text-stride-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>
+                    </div>
+                    <h4 class="text-white font-bold mb-2">Free Shipping</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Free standard shipping on all orders over Ksh. 10,000. Express options available.</p>
+                </div>
+               <div>
+    <div class="w-12 h-12 rounded-xl bg-gray-800/50 border border-white/10 flex items-center justify-center mb-5">
+        <svg class="w-6 h-6 text-stride-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+        </svg>
+    </div>
+    <h4 class="text-white font-bold mb-2">Uncompromised Quality</h4>
+    <p class="text-gray-400 text-sm leading-relaxed">We use industry-leading materials and advanced printing techniques so your brand always looks sharp and vibrant.</p>
+</div>
+                <div>
+    <div class="w-12 h-12 rounded-xl bg-gray-800/50 border border-white/10 flex items-center justify-center mb-5">
+        <svg class="w-6 h-6 text-stride-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+    </div>
+    <h4 class="text-white font-bold mb-2">Fast Turnaround</h4>
+    <p class="text-gray-400 text-sm leading-relaxed">Tight deadline? We offer swift production times and reliable delivery across Nairobi to keep your business moving.</p>
+</div>
+                   <div>
+    <div class="w-12 h-12 rounded-xl bg-gray-800/50 border border-white/10 flex items-center justify-center mb-5">
+        <svg class="w-6 h-6 text-stride-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+        </svg>
+    </div>
+    <h4 class="text-white font-bold mb-2">Easy M-Pesa Payments</h4>
+    <p class="text-gray-400 text-sm leading-relaxed">Enjoy quick, secure transactions via M-Pesa. We begin processing your custom prints the moment payment is confirmed.</p>
+</div>
+            </div>
+        </div>
+    </section>
+<section id="aboutModal" class="fixed inset-0 z-[100] hidden bg-gray-950/90 backdrop-blur-md overflow-y-auto transition-all duration-300">
+    
+    <button onclick="toggleAbout()" class="absolute top-6 right-6 md:top-10 md:right-10 text-gray-400 hover:text-stride-orange bg-gray-800/50 hover:bg-gray-800 p-3 rounded-full transition-all z-50 border border-white/10 hover:border-stride-orange">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+    </button>
+
+    <div class="container mx-auto px-6 py-24 relative z-10">
+        <div class="flex flex-col lg:flex-row gap-16 items-center mb-24">
+            <div class="lg:w-1/2 text-left">
+                <div class="inline-flex items-center px-4 py-1.5 rounded-full bg-orange-500/10 text-stride-orange text-xs font-bold mb-6 border border-orange-500/20">Our Story</div>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-6 tracking-tight">Built for Brands That <span class="text-transparent bg-clip-text bg-gradient-to-r from-stride-orange to-orange-400">Stand Out.</span></h2>
+                <p class="text-gray-400 text-base leading-relaxed mb-6">Based right here in Nairobi, we started with a simple mission: to provide local businesses with world-class printing and branding services without the frustrating delays or hidden costs.</p>
+                <p class="text-gray-400 text-base leading-relaxed mb-8">Whether it's outfitting your entire corporate team in embroidered uniforms, printing high-quality mugs for your hotel, or creating the perfect custom t-shirt for a weekend event, we treat every single order with the exact same level of precision and care. Your brand is your reputation—and making it look incredible is ours.</p>
+                <a href="#contact" onclick="toggleAbout()" class="inline-flex items-center gap-2 text-white font-bold pb-1 border-b-2 border-stride-orange hover:text-stride-orange transition-colors">
+                    Work With Us 
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                </a>
+            </div>
+            
+            <div class="lg:w-1/2 w-full grid grid-cols-2 gap-4">
+                <div class="bg-gray-800/30 border border-white/5 rounded-3xl p-8 text-center hover:bg-gray-800/50 transition-colors">
+                    <h3 class="text-4xl font-extrabold text-white mb-2">5k+</h3>
+                    <p class="text-stride-orange text-sm font-bold uppercase tracking-wider">Happy Clients</p>
+                </div>
+                <div class="bg-gray-800/30 border border-white/5 rounded-3xl p-8 text-center hover:bg-gray-800/50 transition-colors transform lg:translate-y-8">
+                    <h3 class="text-4xl font-extrabold text-white mb-2">99%</h3>
+                    <p class="text-stride-orange text-sm font-bold uppercase tracking-wider">On-Time Delivery</p>
+                </div>
+                <div class="bg-gray-800/30 border border-white/5 rounded-3xl p-8 text-center hover:bg-gray-800/50 transition-colors">
+                    <h3 class="text-4xl font-extrabold text-white mb-2">10k+</h3>
+                    <p class="text-stride-orange text-sm font-bold uppercase tracking-wider">Items Printed</p>
+                </div>
+                <div class="bg-gray-800/30 border border-white/5 rounded-3xl p-8 text-center hover:bg-gray-800/50 transition-colors transform lg:translate-y-8">
+                    <h3 class="text-4xl font-extrabold text-white mb-2">100%</h3>
+                    <p class="text-stride-orange text-sm font-bold uppercase tracking-wider">Local Business</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-t border-white/10 pt-20">
+            <div class="text-center mb-12">
+                <h3 class="text-2xl font-bold text-white mb-4">The Standard We Work By</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-800/20 border border-white/5 rounded-2xl p-8 relative overflow-hidden group">
+                    <div class="w-12 h-12 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6 text-stride-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>
+                    </div>
+                    <h4 class="text-white text-lg font-bold mb-3">Premium Materials</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">We source the best fabrics and ceramics so your branded merchandise doesn't just look good on day one, but lasts for years.</p>
+                </div>
+                <div class="bg-gray-800/20 border border-white/5 rounded-2xl p-8 relative overflow-hidden group">
+                    <div class="w-12 h-12 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6 text-stride-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    </div>
+                    <h4 class="text-white text-lg font-bold mb-3">Unbeatable Speed</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Deadlines matter. Our efficient local production line means we can handle bulk orders quickly without compromising on quality.</p>
+                </div>
+                <div class="bg-gray-800/20 border border-white/5 rounded-2xl p-8 relative overflow-hidden group">
+                    <div class="w-12 h-12 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6 text-stride-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                    </div>
+                    <h4 class="text-white text-lg font-bold mb-3">Partner Approach</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">We don't just print and vanish. We offer guidance on design placement, color matching, and material choices to ensure perfection.</p>
+                </div>
+            </div>
+        </div>
+    </div>   
+</section>
+
+<script>
+  function closeMenu() {
+    const menu = document.getElementById('mobile-menu');
+    
+    // If you are hiding the menu using Tailwind's 'hidden' class:
+    menu.classList.add('hidden');
+    
+    // OR, if you use standard CSS display properties:
+    // menu.style.display = 'none';
+}
+    const aboutModal = document.getElementById('aboutModal');
+
+    function toggleAbout() {
+        // Check if the modal is currently hidden
+        const isHidden = aboutModal.classList.contains('hidden');
+
+        if (isHidden) {
+            // Open the modal
+            aboutModal.classList.remove('hidden');
+            // Lock background scrolling
+            document.body.style.overflow = 'hidden'; 
+        } else {
+            // Close the modal
+            aboutModal.classList.add('hidden');
+            // Restore background scrolling
+            document.body.style.overflow = ''; 
+        }
+    }
+
+    // Pro-tip UX: Close the modal when the user presses the 'Escape' key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === "Escape" && !aboutModal.classList.contains('hidden')) {
+            toggleAbout();
+        }
+    });
+</script>
+   <section id="Feedback" class="container mx-auto px-6 py-24 relative z-10 text-center">
+    <div class="inline-flex justify-center items-center px-4 py-1.5 rounded-full bg-orange-500/10 text-stride-orange text-xs font-bold mb-6 border border-orange-500/20">
+        Client Success
+    </div>
+    <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4 tracking-tight">Trusted by Local Businesses</h2>
+    <p class="text-gray-400 text-sm md:text-base max-w-xl mx-auto mb-16">See what our partners have to say about our custom branding and print quality.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+        <div class="bg-gray-800/30 border border-white/5 rounded-3xl p-8 relative flex flex-col">
+            <div class="flex gap-1 mb-6 text-yellow-500">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            </div>
+            <p class="text-gray-300 text-sm leading-relaxed italic mb-8 flex-1">"The print quality on our new staff t-shirts is flawless. The turnaround time was incredibly fast, and the team was highly professional throughout."</p>
+            <div class="flex items-center gap-4 mt-auto pt-6 border-t border-white/5">
+                <div class="w-10 h-10 rounded-full bg-orange-500/20 text-stride-orange border border-orange-500/30 flex items-center justify-center font-bold text-sm">
+                    KD
+                </div>
+                <div>
+                    <h4 class="text-white text-sm font-bold">KENFLIX DESIGNS</h4>
+                    <p class="text-gray-500 text-xs font-medium">Creative Agency</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-gray-800/30 border border-white/5 rounded-3xl p-8 relative flex flex-col">
+            <div class="flex gap-1 mb-6 text-yellow-500">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            </div>
+            <p class="text-gray-300 text-sm leading-relaxed italic mb-8 flex-1">"We ordered branded merchandise for our annual general meeting. The colors matched our company guidelines perfectly, and the fabrics are top-tier."</p>
+            <div class="flex items-center gap-4 mt-auto pt-6 border-t border-white/5">
+                <div class="w-10 h-10 rounded-full bg-orange-500/20 text-stride-orange border border-orange-500/30 flex items-center justify-center font-bold text-sm">
+                    NC
+                </div>
+                <div>
+                    <h4 class="text-white text-sm font-bold">NABCOS COMPANY LIMITED</h4>
+                    <p class="text-gray-500 text-xs font-medium">Corporate Client</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-gray-800/30 border border-white/5 rounded-3xl p-8 relative flex flex-col">
+            <div class="flex gap-1 mb-6 text-yellow-500">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            </div>
+            <p class="text-gray-300 text-sm leading-relaxed italic mb-8 flex-1">"The embroidered uniforms and branded mugs added a real touch of class to our hotel. Guests have been complimenting the new look all month!"</p>
+            <div class="flex items-center gap-4 mt-auto pt-6 border-t border-white/5">
+                <div class="w-10 h-10 rounded-full bg-orange-500/20 text-stride-orange border border-orange-500/30 flex items-center justify-center font-bold text-sm">
+                    GP
+                </div>
+                <div>
+                    <h4 class="text-white text-sm font-bold">GARDEN PARK HOTEL</h4>
+                    <p class="text-gray-500 text-xs font-medium">Hospitality Partner</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="container mx-auto px-6 py-24 relative z-10">
+    <div class="text-center mb-16">
+        <div class="inline-flex justify-center items-center px-4 py-1.5 rounded-full bg-orange-500/10 text-stride-orange text-xs font-bold mb-6 border border-orange-500/20">
+            Get In Touch
+        </div>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4 tracking-tight">Let's Bring Your Brand to Life</h2>
+        <p class="text-gray-400 text-sm md:text-base max-w-xl mx-auto">Have a question about bulk orders, custom merchandise, or turnaround times? Drop us a message and our team will get back to you swiftly.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        
+        <div class="flex flex-col gap-6">
+            <div class="bg-gray-800/30 border border-white/5 rounded-3xl p-8 flex items-start gap-5 hover:bg-gray-800/50 transition-colors">
+                <div class="w-12 h-12 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center shrink-0">
+                    <svg class="w-6 h-6 text-stride-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-2">Our Print Shop</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Nairobi CBD, Kenya<br>Open Mon - Sat: 8:00 AM - 6:00 PM</p>
+                </div>
+            </div>
+
+            <div class="bg-gray-800/30 border border-white/5 rounded-3xl p-8 flex items-start gap-5 hover:bg-gray-800/50 transition-colors">
+                <div class="w-12 h-12 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center shrink-0">
+                    <svg class="w-6 h-6 text-stride-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-2">Email Us</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">shantelleotinya65@gmail.com<br>We reply to all inquiries within 24 hours.</p>
+                </div>
+            </div>
+
+            <div class="bg-gray-800/30 border border-white/5 rounded-3xl p-8 flex items-start gap-5 hover:bg-gray-800/50 transition-colors">
+                <div class="w-12 h-12 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center shrink-0">
+                    <svg class="w-6 h-6 text-stride-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-2">Call & WhatsApp</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">+254 115 443290<br>Available for urgent orders and M-Pesa Till details.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-gray-800/30 border border-white/5 rounded-3xl p-8 lg:p-10">
+            <form action="#" method="POST" class="flex flex-col gap-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="flex flex-col gap-2">
+                        <label class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Your Name *</label>
+                        <input type="text" placeholder="John Doe" required class="bg-gray-900/50 border border-white/10 text-white rounded-xl px-4 py-3 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-all placeholder-gray-600 w-full">
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Phone Number *</label>
+                        <input type="tel" placeholder="07XX XXX XXX" required class="bg-gray-900/50 border border-white/10 text-white rounded-xl px-4 py-3 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-all placeholder-gray-600 w-full">
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Email Address</label>
+                    <input type="email" placeholder="john@company.com" class="bg-gray-900/50 border border-white/10 text-white rounded-xl px-4 py-3 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-all placeholder-gray-600 w-full">
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Service Required</label>
+                    <select class="bg-gray-900/50 border border-white/10 text-white rounded-xl px-4 py-3 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-all appearance-none cursor-pointer">
+                        <option value="corporate">Corporate Branding & Uniforms</option>
+                        <option value="wholesale">Wholesale Merchandise</option>
+                        <option value="custom">Custom T-Shirt/Mug Prints</option>
+                        <option value="other">General Inquiry</option>
+                    </select>
+                </div>
+
+                <div class="flex flex-col gap-2 mb-2">
+                    <label class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Project Details</label>
+                    <textarea rows="4" placeholder="Tell us about your requirements, estimated quantities, and deadlines..." class="bg-gray-900/50 border border-white/10 text-white rounded-xl px-4 py-3 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-all placeholder-gray-600 w-full resize-none"></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-stride-orange text-white font-bold py-4 rounded-xl transition-all hover:bg-orange-600 hover:-translate-y-0.5 hover:shadow-[0_10px_40px_-10px_rgba(249,115,22,0.5)] flex justify-center items-center gap-2">
+                    Send Inquiry
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+    <footer class="bg-[#050505] border-t border-white/10 pt-20 pb-10 relative z-10 mt-10">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-10 mb-16 pb-16 border-b border-white/10">
+    <div class="max-w-sm">
+        <h3 class="text-2xl font-extrabold text-white mb-3 tracking-tight">Elevate Your Brand</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">Subscribe for exclusive wholesale discounts, new promotional products, and expert branding tips delivered straight to your inbox.</p>
+    </div>
+                
+                <div class="flex-1 w-full max-w-xl">
+                    <form class="flex flex-col sm:flex-row gap-3">
+                        <input type="email" placeholder="Enter your email" class="flex-1 bg-gray-900 border border-gray-700 rounded-xl px-5 py-3.5 text-white text-sm focus:outline-none focus:border-stride-orange transition">
+                        <button type="submit" class="bg-stride-orange hover:bg-orange-600 text-white font-bold px-8 py-3.5 rounded-xl transition text-sm">Subscribe</button>
+                    </form>
+                </div>
+
+               <div class="flex gap-2 text-gray-400">
+    <a href="https://www.tiktok.com/@shaluxedesigns?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center hover:text-white hover:bg-gray-800 transition" aria-label="Follow us on TikTok">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12.525.02c1.31-.02 2.61-.01 3.91.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93v7.2c0 1.61-.6 3.14-1.7 4.25-1.1 1.1-2.6 1.7-4.18 1.7-1.58 0-3.08-.6-4.18-1.7-1.1-1.1-1.7-2.64-1.7-4.25 0-1.61.6-3.14 1.7-4.25 1.1-1.1 2.6-1.7 4.18-1.7.43 0 .86.04 1.28.11v4.04c-.4-.08-.8-.11-1.21-.11-.53 0-1.04.2-1.42.58-.38.38-.59.9-.59 1.44 0 .54.21 1.06.59 1.44.38.38.89.58 1.42.58.53 0 1.04-.2 1.42-.58.38-.38.59-.9.59-1.44V.02z"/>
+        </svg>
+    </a>
+</div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-10">
+    <div class="col-span-2 lg:col-span-2">
+        <div class="flex items-center gap-2 mb-6">
+            <span class="text-xl font-extrabold tracking-tight text-white">Shaluxe Designs</span>
+        </div>
+        <p class="text-gray-400 text-sm leading-relaxed max-w-sm">Premium custom printing and corporate branding based in Nairobi. Elevating your business with high-quality uniforms, promotional merchandise, and flawless design.</p>
+    </div>
+    
+    <div>
+        <h4 class="text-white font-bold mb-5 text-sm">Shop</h4>
+        <ul class="space-y-3">
+            <li><a href="#Arrivals" class="text-gray-400 hover:text-stride-orange text-sm transition">New Arrivals</a></li>
+            <li><a href="#Shop" class="text-gray-400 hover:text-stride-orange text-sm transition">Shop by Category</a></li>
+            <li><a href="Shop.html" class="text-gray-400 hover:text-stride-orange text-sm transition">Sales</a></li>
+            <li><a href="Signature" class="text-gray-400 hover:text-stride-orange text-sm transition">The Signature Collection</a></li>
+        </ul>
+    </div>
+
+ <div>
+        <h4 class="text-white font-bold mb-5 text-sm">Help</h4>
+        <ul class="space-y-3">
+            <li><a href="https://wa.me/254115443290?text=Hello%20Shaluxe!%20I%20have%20a%20few%20questions%20about%20your%20services." target="_blank" class="text-gray-400 hover:text-stride-orange text-sm transition">FAQ</a></li>
+            
+            <li><a href="https://wa.me/254115443290?text=Hello%20Shaluxe!%20What%20are%20the%20guidelines%20for%20submitting%20my%20artwork/logo%20for%20printing?" target="_blank" class="text-gray-400 hover:text-stride-orange text-sm transition">Artwork Guidelines</a></li>
+            
+            <li><a href="https://wa.me/254115443290?text=Hello%20Shaluxe!%20Could%20you%20tell%20me%20about%20your%20delivery%20options%20and%20turnaround%20times?" target="_blank" class="text-gray-400 hover:text-stride-orange text-sm transition">Delivery & Turnaround</a></li>
+            
+            <li><a href="https://wa.me/254115443290?text=Hello%20Shaluxe%20Designs,%20I%20would%20like%20to%20get%20in%20touch!" target="_blank" class="text-gray-400 hover:text-stride-orange text-sm transition">Contact Us</a></li>
+            
+            <li><a href="https://wa.me/254115443290?text=Hello%20Shaluxe!%20I%20have%20a%20custom%20order%20in%20mind%20and%20would%20like%20to%20request%20a%20quote." target="_blank" class="text-gray-400 hover:text-stride-orange text-sm transition">Request a Quote</a></li>
+        </ul>
+    </div>
+
+    <div>
+        <h4 class="text-white font-bold mb-5 text-sm">About</h4>
+        <ul class="space-y-3">
+            <li><a href="javascript:void(0)" class="text-gray-400 hover:text-stride-orange text-sm transition">Our Story</a></li>
+            <li><a href="#Feedback" class="text-gray-400 hover:text-stride-orange text-sm transition">Feedback</a></li>
+            <li><a href="Shop" class="text-gray-400 hover:text-stride-orange text-sm transition">Client Portfolio</a></li>
+        </ul>
+    </div>
+
+    <div>
+        <h4 class="text-white font-bold mb-5 text-sm">Contact Details</h4>
+        <ul class="space-y-4">
+            <li class="flex items-start gap-3 text-sm text-gray-400">
+                <svg class="w-5 h-5 text-stride-orange shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                <a href="mailto:shantelleotinya65@gmail.com" class="hover:text-stride-orange transition">shantelleotinya65@gmail.com</a>
+            </li>
+            <li class="flex items-start gap-3 text-sm text-gray-400">
+                <svg class="w-5 h-5 text-stride-orange shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                <a href="tel:+254 115 443290" class="hover:text-stride-orange transition">+254 115 443290</a>
+            </li>
+            <li class="flex items-start gap-3 text-sm text-gray-400">
+                <svg class="w-5 h-5 text-stride-orange shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <span>Nairobi CBD, Kenya</span>
+            </li>
+        </ul>
+    </div>
+</div>
+    </footer>
+<style>
+    /* 1. Base hidden states for elements before they scroll into view */
+    .reveal-hidden {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.8s cubic-bezier(0.5, 0, 0, 1), transform 0.8s cubic-bezier(0.5, 0, 0, 1);
+    }
+    
+    /* 2. Visible state triggered by JavaScript */
+    .reveal-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* 3. Continuous floating animation for the Hero Image */
+    @keyframes smooth-float {
+        0% { transform: translateY(0px) rotate(-12deg) scale(1.1); }
+        50% { transform: translateY(-20px) rotate(-9deg) scale(1.1); }
+        100% { transform: translateY(0px) rotate(-12deg) scale(1.1); }
+    }
+    .animate-hero-float {
+        animation: smooth-float 6s ease-in-out infinite !important;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- 1. SET UP THE SCROLL OBSERVER ---
+        // This watches the screen and triggers when elements are 15% visible
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+        
+        const scrollObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-visible');
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, observerOptions);
+
+        // --- 2. TARGET & ANIMATE THE CATEGORY CARDS ---
+        // Grabs the 3 large category cards (Apparel, Drinkware, Gifting)
+        const categoryCards = document.querySelectorAll('section .grid-cols-1.md\\:grid-cols-3 > div');
+        categoryCards.forEach((card, index) => {
+            card.classList.add('reveal-hidden');
+            card.style.transitionDelay = `${index * 150}ms`; // Staggers the animation
+            scrollObserver.observe(card);
+        });
+
+        // --- 3. TARGET & ANIMATE THE PRODUCT CARDS ---
+        // Grabs the Signature Collection product cards
+        const productCards = document.querySelectorAll('section .grid-cols-1.sm\\:grid-cols-2.lg\\:grid-cols-4 > div');
+        productCards.forEach((card, index) => {
+            card.classList.add('reveal-hidden');
+            card.style.transitionDelay = `${index * 100}ms`; // Faster stagger for products
+            scrollObserver.observe(card);
+        });
+
+        // --- 4. TARGET & ANIMATE SECTION HEADINGS ---
+        const sectionHeadings = document.querySelectorAll('section h2, section p.text-gray-400');
+        sectionHeadings.forEach((heading) => {
+            heading.classList.add('reveal-hidden');
+            scrollObserver.observe(heading);
+        });
+
+        // --- 5. MAKE THE HERO IMAGE FLOAT ---
+        // Finds the specific red t-shirt image and adds the CSS float animation
+        const heroImage = document.querySelector('img[alt="Red branded T-shirts"]');
+        if(heroImage) {
+            heroImage.classList.add('animate-hero-float');
+        }
+    });
+</script>
+</body>
+</html>

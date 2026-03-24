@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - Shaluxe Designs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        stride: {
+                            orange: '#f97316',
+                            dark: '#0a0b10',
+                            card: '#11141d',
+                            sidebar: '#080a0f',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #0a0b10; }
+        ::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 10px; }
+        body { transition: background-color 0.3s ease; }
+        html:not(.dark) body { background-color: #f9fafb; color: #111827; }
+        html:not(.dark) .glass-card { background: #ffffff; border: 1px solid #e5e7eb; }
+        html:not(.dark) aside { background: #ffffff; border-right: 1px solid #e5e7eb; }
+        html.dark body { background-color: #0a0b10; color: #ffffff; }
+        html.dark .glass-card { background: #11141d; border: 1px solid #1f2937; }
+        html.dark aside { background: #080a0f; border-right: 1px solid #1f2937; }
+        
+        .category-link.active { 
+            background: linear-gradient(90deg, rgba(249, 115, 22, 0.1) 0%, transparent 100%); 
+            color: #f97316; 
+            border-left: 3px solid #f97316; 
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+
+    <div class="bg-stride-orange text-white text-[11px] py-1.5 px-4 text-center font-bold tracking-widest uppercase z-[60] relative">
+        Wholesale and Retail Branding available | SHALUXE
+    </div>
+
+    <nav class="sticky top-0 z-50 px-6 py-4 flex justify-between items-center bg-white/80 dark:bg-stride-dark/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
+        <div class="flex items-center gap-10">
+            <a href="index.html" class="text-xl font-black tracking-tighter">SHALUXE<span class="text-stride-orange">.</span></a>
+        </div>
+
+        <div class="flex items-center gap-5">
+            <button id="theme-toggle-btn" class="p-2 text-gray-400 hover:text-stride-orange transition">
+                <svg id="icon-sun" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path></svg>
+                <svg id="icon-moon" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            </button>
+            <button onclick="toggleCart()" class="relative p-2 text-gray-400 hover:text-stride-orange">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
+                <span id="cart-count" class="absolute top-0 right-0 bg-stride-orange text-[10px] font-black h-4 w-4 rounded-full flex items-center justify-center text-white">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="flex min-h-screen">
+        <aside class="w-64 hidden lg:block p-8 sticky top-20 h-[calc(100vh-80px)] overflow-y-auto">
+            <div class="mb-8">
+                <h3 class="text-xs font-black text-gray-500 uppercase tracking-widest mb-4">Search</h3>
+                <input type="text" id="productSearch" onkeyup="filterProducts()" placeholder="Find a product..." class="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-gray-800 rounded-lg px-4 py-2 text-xs focus:ring-1 focus:ring-stride-orange outline-none transition">
+            </div>
+
+            <div class="mb-10">
+                <h3 class="text-xs font-black text-gray-500 uppercase tracking-widest mb-6">Collections</h3>
+                <nav class="flex flex-col gap-1" id="categoryNav">
+                    <button onclick="setCategory('all', this)" class="category-link active py-2 px-3 text-sm font-bold text-left rounded-r-md transition-all">All Gallery</button>
+                    <button onclick="setCategory('Diary', this)" class="category-link py-2 px-3 text-sm font-medium text-gray-500 hover:text-stride-orange text-left transition-all">Corporate Sets</button>
+                    <button onclick="setCategory('Drinkware', this)" class="category-link py-2 px-3 text-sm font-medium text-gray-500 hover:text-stride-orange text-left transition-all">Drinkware</button>
+                    <button onclick="setCategory('Apparel', this)" class="category-link py-2 px-3 text-sm font-medium text-gray-500 hover:text-stride-orange text-left transition-all">Apparel</button>
+                    <button onclick="setCategory('Mug', this)" class="category-link py-2 px-3 text-sm font-medium text-gray-500 hover:text-stride-orange text-left transition-all">Mugs</button>
+                </nav>
+            </div>
+        </aside>
+
+        <main class="flex-1 p-6 lg:p-12">
+            <header class="mb-10">
+                <h1 class="text-4xl font-black tracking-tight mb-2">Our Products</h1>
+                <p id="results-count" class="text-gray-500 text-sm italic">Showing all items</p>
+            </header>
+
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-8">
+                </div>
+        </main>
+    </div>
+
+    <div id="cart-sidebar" class="fixed right-0 top-0 h-full w-full sm:w-[400px] bg-white dark:bg-stride-card shadow-2xl transform translate-x-full transition-transform duration-500 z-[70] flex flex-col">
+        <div class="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center">
+            <h2 class="text-xl font-black uppercase tracking-tighter">Your Bag</h2>
+            <button onclick="toggleCart()" class="p-2 hover:rotate-90 transition-transform">✕</button>
+        </div>
+        <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-6"></div>
+        <div class="p-8 border-t border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-black/20">
+            <div class="flex justify-between items-center mb-6">
+                <span class="text-gray-500 font-bold uppercase text-xs">Subtotal</span>
+                <span id="cart-total" class="text-2xl font-black">KES 0</span>
+            </div>
+            <button onclick="checkoutWhatsApp()" class="w-full bg-[#25D366] hover:bg-[#1ebe57] text-white font-black py-4 rounded-xl shadow-lg flex justify-center items-center gap-3">
+                CHECKOUT VIA WHATSAPP
+            </button>
+        </div>
+    </div>
+    <div id="cart-overlay" onclick="toggleCart()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[65] hidden"></div>
+  <footer class="bg-[#050505] border-t border-white/10 pt-20 pb-10 relative z-10 mt-10">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-10 mb-16 pb-16 border-b border-white/10">
+    <div class="max-w-sm">
+        <h3 class="text-2xl font-extrabold text-white mb-3 tracking-tight">Elevate Your Brand</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">Subscribe for exclusive wholesale discounts, new promotional products, and expert branding tips delivered straight to your inbox.</p>
+    </div>
+                
+                <div class="flex-1 w-full max-w-xl">
+                    <form class="flex flex-col sm:flex-row gap-3">
+                        <input type="email" placeholder="Enter your email" class="flex-1 bg-gray-900 border border-gray-700 rounded-xl px-5 py-3.5 text-white text-sm focus:outline-none focus:border-stride-orange transition">
+                        <button type="submit" class="bg-stride-orange hover:bg-orange-600 text-white font-bold px-8 py-3.5 rounded-xl transition text-sm">Subscribe</button>
+                    </form>
+                </div>
+
+               <div class="flex gap-2 text-gray-400">
+    <a href="https://www.tiktok.com/@shaluxedesigns?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center hover:text-white hover:bg-gray-800 transition" aria-label="Follow us on TikTok">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12.525.02c1.31-.02 2.61-.01 3.91.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93v7.2c0 1.61-.6 3.14-1.7 4.25-1.1 1.1-2.6 1.7-4.18 1.7-1.58 0-3.08-.6-4.18-1.7-1.1-1.1-1.7-2.64-1.7-4.25 0-1.61.6-3.14 1.7-4.25 1.1-1.1 2.6-1.7 4.18-1.7.43 0 .86.04 1.28.11v4.04c-.4-.08-.8-.11-1.21-.11-.53 0-1.04.2-1.42.58-.38.38-.59.9-.59 1.44 0 .54.21 1.06.59 1.44.38.38.89.58 1.42.58.53 0 1.04-.2 1.42-.58.38-.38.59-.9.59-1.44V.02z"/>
+        </svg>
+    </a>
+</div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-10">
+    <div class="col-span-2 lg:col-span-2">
+        <div class="flex items-center gap-2 mb-6">
+            <span class="text-xl font-extrabold tracking-tight text-white">Shaluxe Designs</span>
+        </div>
+        <p class="text-gray-400 text-sm leading-relaxed max-w-sm">Premium custom printing and corporate branding based in Nairobi. Elevating your business with high-quality uniforms, promotional merchandise, and flawless design.</p>
+    </div>
+    
+    <div>
+        <h4 class="text-white font-bold mb-5 text-sm">Shop</h4>
+        <ul class="space-y-3">
+            <li><a href="#Arrivals" class="text-gray-400 hover:text-stride-orange text-sm transition">New Arrivals</a></li>
+            <li><a href="#Shop" class="text-gray-400 hover:text-stride-orange text-sm transition">Shop by Category</a></li>
+            <li><a href="Shop.html" class="text-gray-400 hover:text-stride-orange text-sm transition">Sales</a></li>
+            <li><a href="Signature" class="text-gray-400 hover:text-stride-orange text-sm transition">The Signature Collection</a></li>
+        </ul>
+    </div>
+
+ <div>
+        <h4 class="text-white font-bold mb-5 text-sm">Help</h4>
+        <ul class="space-y-3">
+            <li><a href="https://wa.me/254115443290?text=Hello%20Shaluxe!%20I%20have%20a%20few%20questions%20about%20your%20services." target="_blank" class="text-gray-400 hover:text-stride-orange text-sm transition">FAQ</a></li>
+            
+            <li><a href="https://wa.me/254115443290?text=Hello%20Shaluxe!%20What%20are%20the%20guidelines%20for%20submitting%20my%20artwork/logo%20for%20printing?" target="_blank" class="text-gray-400 hover:text-stride-orange text-sm transition">Artwork Guidelines</a></li>
+            
+            <li><a href="https://wa.me/254115443290?text=Hello%20Shaluxe!%20Could%20you%20tell%20me%20about%20your%20delivery%20options%20and%20turnaround%20times?" target="_blank" class="text-gray-400 hover:text-stride-orange text-sm transition">Delivery & Turnaround</a></li>
+            
+            <li><a href="https://wa.me/254115443290?text=Hello%20Shaluxe%20Designs,%20I%20would%20like%20to%20get%20in%20touch!" target="_blank" class="text-gray-400 hover:text-stride-orange text-sm transition">Contact Us</a></li>
+            
+            <li><a href="https://wa.me/254115443290?text=Hello%20Shaluxe!%20I%20have%20a%20custom%20order%20in%20mind%20and%20would%20like%20to%20request%20a%20quote." target="_blank" class="text-gray-400 hover:text-stride-orange text-sm transition">Request a Quote</a></li>
+        </ul>
+    </div>
+
+    <div>
+        <h4 class="text-white font-bold mb-5 text-sm">About</h4>
+        <ul class="space-y-3">
+            <li><a href="javascript:void(0)" class="text-gray-400 hover:text-stride-orange text-sm transition">Our Story</a></li>
+            <li><a href="#Feedback" class="text-gray-400 hover:text-stride-orange text-sm transition">Feedback</a></li>
+            <li><a href="Shop" class="text-gray-400 hover:text-stride-orange text-sm transition">Client Portfolio</a></li>
+        </ul>
+    </div>
+
+    <div>
+        <h4 class="text-white font-bold mb-5 text-sm">Contact Details</h4>
+        <ul class="space-y-4">
+            <li class="flex items-start gap-3 text-sm text-gray-400">
+                <svg class="w-5 h-5 text-stride-orange shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                <a href="mailto:shantelleotinya65@gmail.com" class="hover:text-stride-orange transition">shantelleotinya65@gmail.com</a>
+            </li>
+            <li class="flex items-start gap-3 text-sm text-gray-400">
+                <svg class="w-5 h-5 text-stride-orange shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                <a href="tel:+254 115 443290" class="hover:text-stride-orange transition">+254 115 443290</a>
+            </li>
+            <li class="flex items-start gap-3 text-sm text-gray-400">
+                <svg class="w-5 h-5 text-stride-orange shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <span>Nairobi CBD, Kenya</span>
+            </li>
+        </ul>
+    </div>
+</div>
+    </footer>
+<style>
+    /* 1. Base hidden states for elements before they scroll into view */
+    .reveal-hidden {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.8s cubic-bezier(0.5, 0, 0, 1), transform 0.8s cubic-bezier(0.5, 0, 0, 1);
+    }
+    
+    /* 2. Visible state triggered by JavaScript */
+    .reveal-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* 3. Continuous floating animation for the Hero Image */
+    @keyframes smooth-float {
+        0% { transform: translateY(0px) rotate(-12deg) scale(1.1); }
+        50% { transform: translateY(-20px) rotate(-9deg) scale(1.1); }
+        100% { transform: translateY(0px) rotate(-12deg) scale(1.1); }
+    }
+    .animate-hero-float {
+        animation: smooth-float 6s ease-in-out infinite !important;
+    }
+</style>
+
+    <script>
+        // DATA
+        const products = [
+            { id: 'mugs', name: 'Signature Mugs', category: 'Mug', image: 'https://i.pinimg.com/1200x/60/cb/30/60cb30077372a6dd2f842738c9ede319.jpg', badge: 'BESTSELLER', variants: [
+                { id: 'mug-rp', name: 'Retail (Plain)', price: 200 },
+                { id: 'mug-rb', name: 'Retail (Branded)', price: 400 },
+                { id: 'mug-wp', name: 'Wholesale (Plain Cups)', price: 250 },
+                { id: 'mug-wb', name: 'Wholesale (Branded Cups)', price: 450 }
+            ]},
+            { id: 'tshirts', name: 'Apparel & Uniforms', category: 'Apparel', image: 'https://i.pinimg.com/736x/62/91/9d/62919d4139e5bb7703893e5d9546c6f2.jpg', badge: 'POPULAR', variants: [
+                { id: 'ts-rp', name: 'Retail (Plain)', price: 400 },
+                { id: 'ts-rb', name: 'Retail (Branded)', price: 650 },
+                { id: 'ts-wp', name: 'Wholesale (Plain)', price: 350 },
+                { id: 'ts-wb', name: 'Wholesale (Branded)', price: 500 }
+            ]},
+            { id: 'diary-set', name: 'Executive Diary Sets', category: 'Diary', image: 'https://i.pinimg.com/1200x/6a/58/b4/6a58b495a82fcedb3a94b45d6fd0d740.jpg', badge: 'PREMIUM', variants: [
+                { id: 'ds-std', name: 'Standard Set', price: 2500 },
+                { id: 'ds-prm', name: 'Premium Set', price: 4500 }
+            ]},
+            { id: 'diary-single', name: 'The Campus Classic', category: 'Diary', image: 'https://i.pinimg.com/1200x/69/f7/24/69f7241db90c2a1a7f7b130a04949f65.jpg', badge: 'NEW', variants: [
+                { id: 'd-br', name: 'Branded Diary', price: 800 }
+            ]},
+            { id: 'water-bottle', name: 'Signature Drinkware', category: 'Drinkware', image: 'https://i.pinimg.com/736x/cd/29/20/cd292097a5fa5986ce84d8a6fba6ed35.jpg', badge: 'TRENDING', variants: [
+                { id: 'wb-pl', name: 'Plain Bottle', price: 1000 },
+                { id: 'wb-br', name: 'Branded Bottle', price: 1500 }
+            ]}
+        ];
+
+        let activeCategory = 'all';
+
+        // FILTERING LOGIC
+        function setCategory(cat, el) {
+            activeCategory = cat;
+            document.querySelectorAll('.category-link').forEach(link => link.classList.remove('active', 'font-bold', 'text-stride-orange'));
+            el.classList.add('active', 'font-bold', 'text-stride-orange');
+            filterProducts();
+        }
+
+        function filterProducts() {
+            const searchTerm = document.getElementById('productSearch').value.toLowerCase();
+            const filtered = products.filter(p => {
+                const matchesCat = activeCategory === 'all' || p.category === activeCategory || p.name.includes(activeCategory);
+                const matchesSearch = p.name.toLowerCase().includes(searchTerm);
+                return matchesCat && matchesSearch;
+            });
+            renderProducts(filtered);
+            document.getElementById('results-count').innerText = `Showing ${filtered.length} products`;
+        }
+
+        function renderProducts(items) {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = items.map(p => {
+                let options = p.variants.map(v => `<option value="${v.id}" data-price="${v.price}">${v.name} - KES ${v.price}</option>`).join('');
+                return `
+                    <div class="glass-card rounded-3xl overflow-hidden group flex flex-col transition-all duration-300 hover:-translate-y-2">
+                        <div class="relative h-64 overflow-hidden bg-gray-100 dark:bg-gray-900">
+                            <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <span class="absolute top-4 left-4 bg-stride-orange text-[10px] font-black px-3 py-1 rounded-full text-white">${p.badge}</span>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <h3 id="name-${p.id}" class="text-lg font-black mb-4 tracking-tight">${p.name}</h3>
+                            <div class="mt-auto space-y-4">
+                                <select id="variant-${p.id}" class="w-full bg-gray-50 dark:bg-black/40 border border-gray-200 dark:border-gray-800 rounded-xl p-3 text-sm outline-none">
+                                    ${options}
+                                </select>
+                                <button onclick="addToCart('${p.id}')" class="w-full bg-stride-orange hover:bg-white hover:text-stride-orange border border-stride-orange text-white font-bold py-3.5 rounded-xl transition-all text-xs uppercase tracking-widest">
+                                    Add to Bag
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Initialize
+        renderProducts(products);
+
+        // CART & THEME (Originals)
+        let cart = [];
+        function toggleCart() {
+            document.getElementById('cart-sidebar').classList.toggle('translate-x-full');
+            document.getElementById('cart-overlay').classList.toggle('hidden');
+        }
+
+        function addToCart(productId) {
+            const select = document.getElementById('variant-' + productId);
+            const variantId = select.value;
+            const variantName = select.options[select.selectedIndex].text.split(' - KES')[0];
+            const price = parseInt(select.options[select.selectedIndex].dataset.price);
+            const product = products.find(p => p.id === productId);
+            
+            const existing = cart.find(item => item.variantId === variantId);
+            if(existing) existing.qty++;
+            else cart.push({ productId, variantId, name: product.name, variantName, price, qty: 1, img: product.image });
+            
+            updateCartUI();
+            if(document.getElementById('cart-sidebar').classList.contains('translate-x-full')) toggleCart();
+        }
+
+        function updateCartUI() {
+            const itemsContainer = document.getElementById('cart-items');
+            let total = 0; let count = 0;
+            itemsContainer.innerHTML = cart.map((item, index) => {
+                total += (item.price * item.qty); count += item.qty;
+                return `<div class="flex gap-4 items-center">
+                    <img src="${item.img}" class="w-16 h-16 rounded-xl object-cover">
+                    <div class="flex-1 text-xs">
+                        <p class="font-black">${item.name}</p>
+                        <p class="text-gray-500">${item.variantName}</p>
+                        <div class="flex items-center gap-2 mt-2">
+                            <button onclick="changeQty(${index},-1)" class="w-6 h-6 bg-gray-100 dark:bg-gray-800 rounded">-</button>
+                            <span class="font-bold">${item.qty}</span>
+                            <button onclick="changeQty(${index},1)" class="w-6 h-6 bg-gray-100 dark:bg-gray-800 rounded">+</button>
+                        </div>
+                    </div>
+                    <p class="font-bold text-sm">KES ${(item.price * item.qty).toLocaleString()}</p>
+                </div>`;
+            }).join('');
+            document.getElementById('cart-total').innerText = `KES ${total.toLocaleString()}`;
+            document.getElementById('cart-count').innerText = count;
+        }
+
+        function changeQty(i, d) { cart[i].qty += d; if(cart[i].qty <= 0) cart.splice(i,1); updateCartUI(); }
+        function checkoutWhatsApp() {
+            let msg = "Hello Shaluxe Designs! 🌟\nI'd like to order:\n\n" + cart.map(i => `✅ ${i.qty}x ${i.name} - KES ${(i.price*i.qty).toLocaleString()}`).join('\n');
+            window.open(`https://wa.me/254115443290?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        // Theme Toggle
+        const themeBtn = document.getElementById('theme-toggle-btn');
+        themeBtn.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            document.getElementById('icon-sun').classList.toggle('hidden');
+            document.getElementById('icon-moon').classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
