@@ -1075,8 +1075,17 @@ document.getElementById("cta-btn").innerText =
         <p class="text-gray-400 text-sm leading-relaxed">Subscribe for exclusive wholesale discounts, new promotional products, and expert branding tips delivered straight to your inbox.</p>
     </div>
                 
-               <form action="/subscribe" method="POST" class="flex flex-col sm:flex-row gap-3">
-    
+              {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="mb-4 p-3 rounded-lg text-sm {% if category == 'error' %}bg-red-900 text-red-200{% else %}bg-green-900 text-green-200{% endif %}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<form action="{{ url_for('subscribe') }}" method="POST" class="flex flex-col sm:flex-row gap-3">
     <input 
         type="email" 
         name="email"
@@ -1090,7 +1099,6 @@ document.getElementById("cta-btn").innerText =
         class="bg-stride-orange hover:bg-orange-600 text-white font-bold px-8 py-3.5 rounded-xl transition text-sm">
         Subscribe
     </button>
-
 </form>
                <div class="flex gap-2 text-gray-400">
     <a href="https://www.tiktok.com/@shaluxedesigns?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center hover:text-white hover:bg-gray-800 transition" aria-label="Follow us on TikTok">
